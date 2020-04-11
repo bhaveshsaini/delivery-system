@@ -16,4 +16,4 @@ export const data = 'Advanced Hand Sanitizer,16\n' +
     'Old Spice Fresh Collection,66\n' +
     'Hydrogen Peroxide,63\n' +
     'Total Eye Care,42\n' +
-    'Alprazolam,17\n'
+    'Alprazolam,17'

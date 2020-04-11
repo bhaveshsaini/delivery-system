@@ -53,6 +53,7 @@ class Homepage extends Component {
                     </div>
 
                     <div id={'firstdiv'} className="w3-padding-64 w3-large w3-text-grey">
+                        <a className="w3-bar-item w3-button">Home</a>
                         <a onClick={() => this.props.history.push('/produce')} className="w3-bar-item w3-button">Produce</a>
                         <a onClick={() => this.props.history.push('/beverages')} className="w3-bar-item w3-button">Beverages</a>
                         <a onClick={() => this.props.history.push('/grocery')} className="w3-bar-item w3-button">Grocery</a>
@@ -83,7 +84,6 @@ class Homepage extends Component {
                     <header className="w3-container w3-xlarge">
                         <p className="w3-right">
                             <i className="fa fa-shopping-cart w3-margin-right"></i>
-                            <i className="fa fa-search"></i>
                         </p>
                     </header>
                 </div>

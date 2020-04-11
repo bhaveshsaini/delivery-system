@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import "./styling/produce.css"
-import "./data/dummyData"
 import {data} from "./data/dummyData";
 
 class Produce extends Component {
@@ -9,7 +8,8 @@ class Produce extends Component {
         super(props);
 
         this.state = {
-            newData: data.split('\n')
+            newData: data.split('\n'),
+            searchedData: data.split('\n'),
         }
     }
 
@@ -23,6 +23,52 @@ class Produce extends Component {
         document.getElementById("mySidebar").style.display = "none";
         document.getElementById("myOverlay").style.display = "none";
     }
+
+    searchbar = (res) => {
+        let value  = res.target.value.toUpperCase()
+        let searched = false;
+
+        if(value !== '')
+        {
+            this.state.newData.map((info) => {
+                if(!info.toUpperCase().includes(value))
+                {
+                    document.getElementById(info.split(',')[0]).style.display = 'none'
+                }
+                else {
+                    searched = true;
+                    document.getElementById(info.split(',')[0]).style.display = 'table-row'
+
+                }
+
+            })
+
+            if (searched){
+                console.log("INSDE IF")
+                document.getElementById('originaldata').style.display = 'none'
+                document.getElementById('searcheddata').style.display = 'block'
+                document.getElementById('noresults').style.display = 'none'
+            }
+
+            else {
+                console.log('inside else')
+                document.getElementById('originaldata').style.display = 'none'
+                document.getElementById('searcheddata').style.display = 'none'
+                document.getElementById('noresults').style.display = 'block'
+            }
+
+        }
+
+        if(value === '')
+        {
+            console.log('no value')
+            document.getElementById('originaldata').style.display = 'block'
+            document.getElementById('searcheddata').style.display = 'none'
+            document.getElementById('noresults').style.display = 'none'
+        }
+
+    }
+
 
     render() {
         return (
@@ -75,29 +121,60 @@ class Produce extends Component {
                     <header className="w3-container w3-xlarge">
                         <p className="w3-right">
                             <i className="fa fa-shopping-cart w3-margin-right"></i>
-                            <i className="fa fa-search"></i>
                         </p>
                     </header>
 
-                    <h1 className="w3-bar-item w3-button">Produce</h1>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Item Name</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {this.state.newData.map((info) =>
+                    <h1>Produce</h1>
+                    <div className={'searchbar'}>
+                        <input onChange={this.searchbar} type="text" placeholder="Search for produce items" name="search"/>
+                    </div>
+
+                    <div id={'originaldata'}>
+                        <table>
+                            <thead>
                             <tr>
-                                <td>{info.split(',')[0]}</td>
-                                <td>${info.split(',')[1]}</td>
-                                <td id={'lastColumn'}><input type={'number'}/><button>Add to Cart</button></td>
+                                <th>Item Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
                             </tr>
-                        )}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                    {this.state.newData.map((info) =>
+                                        <tr>
+                                            <td>{info.split(',')[0]}</td>
+                                            <td>${info.split(',')[1]}</td>
+                                            <td id={'lastColumn'}><input type={'number'}/><button>Add to Cart</button></td>
+                                        </tr>
+                                    )}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id={'searcheddata'}>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.searchedData.map((info) =>
+                                <tr id={info.split(',')[0]}>
+                                    <td>{info.split(',')[0]}</td>
+                                    <td>${info.split(',')[1]}</td>
+                                    <td id={'lastColumn'}><input type={'number'}/><button>Add to Cart</button></td>
+                                </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id={'noresults'}>
+                        <h1>No Results</h1>
+                    </div>
+
                 </div>
                 </body>
             </div>
