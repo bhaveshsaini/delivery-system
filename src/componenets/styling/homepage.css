@@ -1,0 +1,58 @@
+.w3-sidebar a {
+    font-family: "Roboto", sans-serif
+}
+body,h1,h2,h3,h4,h5,h6,.w3-wide {
+    font-family: "Montserrat", sans-serif;
+}
+
+.logodiv{
+    /*background-color: black;*/
+    /*height: 300px;*/
+    margin: 10%;
+}
+
+#smallScreenHeader{
+    margin: 0;
+}
+
+.logodiv img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#mySidebar{
+    z-index: 3;
+    width: 250px;
+}
+
+#firstdiv{
+    font-weight: bold;
+}
+
+#myOverlay{
+    cursor: pointer;
+}
+
+.w3-main{
+    margin-left: 250px;
+}
+
+.w3-hide-large{
+    margin-top: 83px;
+}
+
+.w3-display-container w3-container img{
+    width: 100%;
+}
+
+#divID{
+    padding: 24px 48px;
+}
+
+.imageclass{
+    width: 100%;
+}
+
+#bodyy{
+    max-width: 1200px;
+}
