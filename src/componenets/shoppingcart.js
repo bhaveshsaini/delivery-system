@@ -1,18 +1,21 @@
 import React, {Component} from 'react';
-import "./styling/produce.css"
-// import {data} from "./data/dummyData";
+import "./styling/shoppingcart.css"
 
-class Produce extends Component {
+class Shoppingcart extends Component {
 
     constructor(props) {
         super(props);
 
-        // this.state = {
-        //     //newData: data.split('\n'),
-        // }
+        this.state = {
+            shoppingCart: [],
+            subTotal: 0
+        }
+
+        this.loadShoppingCart();
+        console.log(this.state.shoppingCart)
+        console.log(this.state.subTotal)
     }
 
-    // Open and close sidebar
     w3_open = () => {
         document.getElementById("mySidebar").style.display = "block";
         document.getElementById("myOverlay").style.display = "block";
@@ -23,44 +26,14 @@ class Produce extends Component {
         document.getElementById("myOverlay").style.display = "none";
     }
 
-    searchbar = (res) => {
-        let value  = res.target.value.toUpperCase()
-        let searched = false;
+    loadShoppingCart = () => {
+        this.props.inventory.map((info) => {
 
-        if(value !== '')
-        {
-            this.props.inventory.map((info) => {
-                if(!info.name.toUpperCase().includes(value))
-                {
-                    document.getElementById(info.name).style.display = 'none'
-                }
-                else {
-                    searched = true;
-                    document.getElementById(info.name).style.display = 'table-row'
-
-                }
-
-            })
-
-            if (searched){
-                document.getElementById('originaldata').style.display = 'block'
-                document.getElementById('noresults').style.display = 'none'
+            if (info.quantity > 0){
+                this.state.shoppingCart.push(info);
+                this.state.subTotal += parseFloat((parseFloat(info.price) * info.quantity).toFixed(2))
             }
-
-            else {
-                document.getElementById('originaldata').style.display = 'none'
-                document.getElementById('noresults').style.display = 'block'
-            }
-
-        }
-
-        if(value === '')
-        {
-            this.props.inventory.map((info) => document.getElementById(info.name).style.display = 'table-row')
-            document.getElementById('originaldata').style.display = 'block'
-            document.getElementById('noresults').style.display = 'none'
-        }
-
+        })
     }
 
     render() {
@@ -110,17 +83,14 @@ class Produce extends Component {
                     {/*Push down content on small screens*/}
                     <div className="w3-hide-large"></div>
 
-                    {/*top header*/}
-                    <header className="w3-container w3-xlarge">
-                        <p className="w3-right">
-                            <a onClick={() => this.props.history.push('/cart')} href={'#'}><i className="fa fa-shopping-cart w3-margin-right"> Cart</i></a>
-                        </p>
-                    </header>
+                    {/*/!*top header*!/*/}
+                    {/*<header className="w3-container w3-xlarge">*/}
+                    {/*    <p className="w3-right">*/}
+                    {/*        <i className="fa fa-shopping-cart w3-margin-right"></i>*/}
+                    {/*    </p>*/}
+                    {/*</header>*/}
 
-                    <h1>Produce</h1>
-                    <div className={'searchbar'}>
-                        <input onChange={this.searchbar} type="text" placeholder="Search for produce items" name="search"/>
-                    </div>
+                    <h1>Shopping Cart</h1>
 
                     <div id={'originaldata'}>
                         <table>
@@ -132,27 +102,38 @@ class Produce extends Component {
                             </tr>
                             </thead>
                             <tbody>
-                                    {this.props.inventory.map((info) =>
-                                        <tr id={info.name}>
-                                            <td>{info.name}</td>
-                                            <td>${info.price}</td>
-                                            <td id={'lastColumn'}>
-                                                <form>                                                                                  
-                                                    <input id={info.name + '1'} defaultValue={info.quantity} min={"0"} type={'number'} required/>
-                                                    <button onClick={() => this.props.addToCart(info.name, info.price, document.getElementById(info.name + '1').value)} type={"button"}>
-                                                        Add To Cart
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    )}
+                            {this.props.inventory.map((info) =>
+                                info.quantity > 0 ?
+                                <tr id={info.name}>
+                                    <td>{info.name}</td>
+                                    <td>${info.price}</td>
+                                    <td id={'lastColumn'}>
+                                        <form>
+                                            <input id={info.name + '1'} defaultValue={info.quantity} min={"0"} type={'number'} required/><br/>
+                                            <button
+                                                onClick={() =>
+                                                {
+                                                    this.props.addToCart(info.name, info.price, document.getElementById(info.name + '1').value)
+                                                    window.location.reload()
+                                                }} type={"button"}>
+                                                Update
+                                            </button>
+                                            <button onClick={
+                                                () =>
+                                                {   this.props.addToCart(info.name, info.price, 0)
+                                                    window.location.reload()
+                                                }
+                                            } type={"button"}>
+                                                Remove
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr> : ""
+                            )}
                             </tbody>
                         </table>
                     </div>
 
-                    <div id={'noresults'}>
-                        <h1>No Results</h1>
-                    </div>
 
                 </div>
                 </body>
@@ -161,4 +142,4 @@ class Produce extends Component {
     }
 }
 
-export default Produce;
+export default Shoppingcart;
