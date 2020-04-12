@@ -13,8 +13,36 @@ class App extends Component{
     constructor(props) {
         super(props);
 
+        this.state = {
+            shoppingCart: []
+        }
+    }
+
+    addToCart = (name, price, quantity) => {
+        console.log(name + " " + price + " " + quantity)
+        let item_obj = {
+            name: name,
+            price: price,
+            quantity: quantity
+        };
+        let found = false
+
+        this.state.shoppingCart.map((info) => {
+            if (info.name === name) {
+                info.quantity = quantity;
+                found = true
+            }
+        })
+        if (!found){
+            this.state.shoppingCart.push(item_obj);
+        }
+
+
+        console.log(this.state.shoppingCart);
 
     }
+
+
     render() {
         return (
             <BrowserRouter>
@@ -29,25 +57,25 @@ class App extends Component{
 
                         <Route path={'/beverages'} exact render={
                             props => (
-                                <Beverages {...props}/>
+                                <Beverages {...props} addToCart = {this.addToCart} shoppingCart = {this.state.shoppingCart}/>
                             )
                         }/>
 
                         <Route path={"/dairy"} exact render = {
                             props => (
-                                <Dairy {...props}/>
+                                <Dairy {...props} addToCart = {this.addToCart} shoppingCart = {this.state.shoppingCart}/>
                             )
                         }/>
 
                         <Route path={"/grocery"} exact render = {
                             props => (
-                                <Grocery {...props}/>
+                                <Grocery {...props} addToCart = {this.addToCart} shoppingCart = {this.state.shoppingCart}/>
                             )
                         }/>
 
                         <Route path={"/produce"} exact render = {
                             props => (
-                                <Produce {...props}/>
+                                <Produce {...props} addToCart = {this.addToCart} shoppingCart = {this.state.shoppingCart}/>
                             )
                         }/>
                     </Switch>

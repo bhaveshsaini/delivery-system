@@ -9,7 +9,7 @@ class Produce extends Component {
 
         this.state = {
             newData: data.split('\n'),
-            searchedData: data.split('\n'),
+            defaultValue: 0
         }
     }
 
@@ -44,16 +44,12 @@ class Produce extends Component {
             })
 
             if (searched){
-                console.log("INSDE IF")
-                document.getElementById('originaldata').style.display = 'none'
-                document.getElementById('searcheddata').style.display = 'block'
+                document.getElementById('originaldata').style.display = 'block'
                 document.getElementById('noresults').style.display = 'none'
             }
 
             else {
-                console.log('inside else')
                 document.getElementById('originaldata').style.display = 'none'
-                document.getElementById('searcheddata').style.display = 'none'
                 document.getElementById('noresults').style.display = 'block'
             }
 
@@ -61,14 +57,36 @@ class Produce extends Component {
 
         if(value === '')
         {
-            console.log('no value')
+            this.state.newData.map((info) => document.getElementById(info.split(',')[0]).style.display = 'table-row')
             document.getElementById('originaldata').style.display = 'block'
-            document.getElementById('searcheddata').style.display = 'none'
             document.getElementById('noresults').style.display = 'none'
         }
 
     }
 
+    presentInCart = (name) => {
+
+        console.log('im called')
+        let found = false
+        this.props.shoppingCart.map((info) => {
+            if (info.name === name) {
+                // document.getElementById(name + '1').setAttribute('defaultValue', info.quantity)
+                console.log(info.quantity)
+
+                this.state.defaultvalue = info.quantity.toString()
+                found = true
+            }
+        })
+
+        if(!found)
+        {
+            // document.getElementById(name + '1').setAttribute('defaultValue', "0")
+            console.log("0")
+            this.state.defaultvalue = '0'
+        }
+
+
+    }
 
     render() {
         return (
@@ -140,33 +158,19 @@ class Produce extends Component {
                             </thead>
                             <tbody>
                                     {this.state.newData.map((info) =>
-                                        <tr>
+                                        <tr id={info.split(',')[0]}>
                                             <td>{info.split(',')[0]}</td>
                                             <td>${info.split(',')[1]}</td>
-                                            <td id={'lastColumn'}><input type={'number'}/><button>Add to Cart</button></td>
+                                            <td id={'lastColumn'}>
+                                                <form>                                                                                  HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+                                                    <input id={info.split(',')[0] + '1'} defaultValue={this.state.defaultValue} onLoad={this.presentInCart(info.split(',')[0])} min={"0"} type={'text'} required/>
+                                                    <button onClick={() => this.props.addToCart(info.split(',')[0], info.split(',')[1], document.getElementById(info.split(',')[0] + '1').value)} type={"button"}>
+                                                        Add to Cart
+                                                    </button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     )}
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div id={'searcheddata'}>
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>Item Name</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                {this.state.searchedData.map((info) =>
-                                <tr id={info.split(',')[0]}>
-                                    <td>{info.split(',')[0]}</td>
-                                    <td>${info.split(',')[1]}</td>
-                                    <td id={'lastColumn'}><input type={'number'}/><button>Add to Cart</button></td>
-                                </tr>
-                                )}
                             </tbody>
                         </table>
                     </div>

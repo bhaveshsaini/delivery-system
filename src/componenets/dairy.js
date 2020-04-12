@@ -9,7 +9,6 @@ class Dairy extends Component {
 
         this.state = {
             newData: data.split('\n'),
-            searchedData: data.split('\n'),
         }
     }
 
@@ -44,16 +43,12 @@ class Dairy extends Component {
             })
 
             if (searched){
-                console.log("INSDE IF")
-                document.getElementById('originaldata').style.display = 'none'
-                document.getElementById('searcheddata').style.display = 'block'
+                document.getElementById('originaldata').style.display = 'block'
                 document.getElementById('noresults').style.display = 'none'
             }
 
             else {
-                console.log('inside else')
                 document.getElementById('originaldata').style.display = 'none'
-                document.getElementById('searcheddata').style.display = 'none'
                 document.getElementById('noresults').style.display = 'block'
             }
 
@@ -61,9 +56,8 @@ class Dairy extends Component {
 
         if(value === '')
         {
-            console.log('no value')
+            this.state.newData.map((info) => document.getElementById(info.split(',')[0]).style.display = 'table-row')
             document.getElementById('originaldata').style.display = 'block'
-            document.getElementById('searcheddata').style.display = 'none'
             document.getElementById('noresults').style.display = 'none'
         }
 
@@ -139,36 +133,24 @@ class Dairy extends Component {
                             </thead>
                             <tbody>
                             {this.state.newData.map((info) =>
-                                <tr>
+                                <tr id={info.split(',')[0]}>
                                     <td>{info.split(',')[0]}</td>
                                     <td>${info.split(',')[1]}</td>
-                                    <td id={'lastColumn'}><input type={'number'}/><button>Add to Cart</button></td>
+                                    <td id={'lastColumn'}>
+                                        <form>
+                                            <input id={info.split(',')[0] + '1'} defaultValue={'0'} min={"0"} type={'number'} required/>
+                                            <button onClick={() => this.props.addToCart(info.split(',')[0], info.split(',')[1], document.getElementById(info.split(',')[0] + '1').value)} type={"button"}>
+                                                Add to Cart
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                             )}
                             </tbody>
                         </table>
                     </div>
 
-                    <div id={'searcheddata'}>
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>Item Name</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.state.searchedData.map((info) =>
-                                <tr id={info.split(',')[0]}>
-                                    <td>{info.split(',')[0]}</td>
-                                    <td>${info.split(',')[1]}</td>
-                                    <td id={'lastColumn'}><input type={'number'}/><button>Add to Cart</button></td>
-                                </tr>
-                            )}
-                            </tbody>
-                        </table>
-                    </div>
+
 
                     <div id={'noresults'}>
                         <h1>No Results</h1>
