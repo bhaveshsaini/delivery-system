@@ -17,6 +17,7 @@ class App extends Component{
 
         this.state = {
             inventory: []
+            //Different arrays for all categories
         }
         this.loadInventory()
     }
@@ -26,14 +27,21 @@ class App extends Component{
         this.state.inventory.map((info) => {
             if (info.name === name) {
                 info.quantity = quantity;
-               
+
             }
         })
 
+        localStorage.setItem("inventoryStorage", JSON.stringify(this.state.inventory) )
+        
     }
 
     loadInventory = () => {
-       
+
+        if (localStorage.getItem("inventoryStorage") !== null){
+            this.state.inventory = JSON.parse(localStorage.getItem('inventoryStorage'))
+        }
+       else{
+
         let splittedData = data.split('\n');
 
         splittedData.map((info) => {
@@ -43,10 +51,12 @@ class App extends Component{
                 price: info.split(',')[1] ,
                 quantity: 0
             };
-
             this.state.inventory.push(item);
 
         })
+
+       }
+        
 
     }
 
