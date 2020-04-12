@@ -7,6 +7,8 @@ import Dairy from "./componenets/dairy";
 import Grocery from "./componenets/grocery";
 import Produce from "./componenets/produce";
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
+import {data} from "./componenets/data/dummyData";
+
 
 class App extends Component{
 
@@ -14,34 +16,39 @@ class App extends Component{
         super(props);
 
         this.state = {
-            shoppingCart: []
+            inventory: []
         }
+        this.loadInventory()
     }
 
     addToCart = (name, price, quantity) => {
-        console.log(name + " " + price + " " + quantity)
-        let item_obj = {
-            name: name,
-            price: price,
-            quantity: quantity
-        };
-        let found = false
-
-        this.state.shoppingCart.map((info) => {
+       
+        this.state.inventory.map((info) => {
             if (info.name === name) {
                 info.quantity = quantity;
-                found = true
+               
             }
         })
-        if (!found){
-            this.state.shoppingCart.push(item_obj);
-        }
-
-
-        console.log(this.state.shoppingCart);
 
     }
 
+    loadInventory = () => {
+       
+        let splittedData = data.split('\n');
+
+        splittedData.map((info) => {
+        
+            let item = {
+                name:info.split(',')[0],
+                price: info.split(',')[1] ,
+                quantity: 0
+            };
+
+            this.state.inventory.push(item);
+
+        })
+
+    }
 
     render() {
         return (
@@ -57,25 +64,25 @@ class App extends Component{
 
                         <Route path={'/beverages'} exact render={
                             props => (
-                                <Beverages {...props} addToCart = {this.addToCart} shoppingCart = {this.state.shoppingCart}/>
+                                <Beverages {...props} addToCart = {this.addToCart} inventory = {this.state.inventory}/>
                             )
                         }/>
 
                         <Route path={"/dairy"} exact render = {
                             props => (
-                                <Dairy {...props} addToCart = {this.addToCart} shoppingCart = {this.state.shoppingCart}/>
+                                <Dairy {...props} addToCart = {this.addToCart} inventory = {this.state.inventory}/>
                             )
                         }/>
 
                         <Route path={"/grocery"} exact render = {
                             props => (
-                                <Grocery {...props} addToCart = {this.addToCart} shoppingCart = {this.state.shoppingCart}/>
+                                <Grocery {...props} addToCart = {this.addToCart} inventory = {this.state.inventory}/>
                             )
                         }/>
 
                         <Route path={"/produce"} exact render = {
                             props => (
-                                <Produce {...props} addToCart = {this.addToCart} shoppingCart = {this.state.shoppingCart}/>
+                                <Produce {...props} addToCart = {this.addToCart} inventory = {this.state.inventory}/>
                             )
                         }/>
                     </Switch>
