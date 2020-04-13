@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import "./styling/grocery.css"
-import {data} from "./data/dummyData";
 
 class Grocery extends Component {
 
@@ -113,7 +112,7 @@ class Grocery extends Component {
                     {/*top header*/}
                     <header className="w3-container w3-xlarge">
                         <p className="w3-right">
-                            <a onClick={() => this.props.history.push('/cart')} href={'#'}><i className="fa fa-shopping-cart w3-margin-right"> Cart</i></a>
+                            <a onClick={() => this.props.history.push('/cart')} href={''}><i className="fa fa-shopping-cart w3-margin-right"> Cart</i></a>
                         </p>
                     </header>
 

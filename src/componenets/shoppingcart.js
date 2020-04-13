@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import "./styling/shoppingcart.css"
 
-class Shoppingcart extends Component {
+class Shoppingcart extends Component {                                                                                          //TODO: CALCULATE TAX
 
     constructor(props) {
         super(props);
@@ -12,8 +12,6 @@ class Shoppingcart extends Component {
         }
 
         this.loadShoppingCart();
-        console.log(this.state.shoppingCart)
-        console.log(this.state.subTotal)
     }
 
     w3_open = () => {
@@ -28,10 +26,9 @@ class Shoppingcart extends Component {
 
     loadShoppingCart = () => {
         this.props.inventory.map((info) => {
-
             if (info.quantity > 0){
                 this.state.shoppingCart.push(info);
-                this.state.subTotal += parseFloat((parseFloat(info.price) * info.quantity).toFixed(2))
+                this.state.subTotal += info.price * info.quantity
             }
         })
     }
@@ -132,6 +129,8 @@ class Shoppingcart extends Component {
                             )}
                             </tbody>
                         </table>
+
+                        <h2><b>Subtotal: ${this.state.subTotal.toFixed(2)}</b></h2>
                     </div>
 
 

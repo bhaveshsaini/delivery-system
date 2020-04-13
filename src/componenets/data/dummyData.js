@@ -1,8 +1,8 @@
-export const data = 'Advanced Hand Sanitizer,16\n' +
-    'Sulfamethoxazole and Trimethoprim,14\n' +
+export const data = 'Advanced Hand Sanitizer,1.99\n' +
+    'Sulfamethoxazole and Trimethoprim,1.50\n' +
     'Hizentra,2.25\n' +
-    'Treatment Set TS331632,81\n' +
-    'Phenytoin Sodium,9.80\n' +
+    'Treatment Set TS331632,19.99\n' +
+    'Phenytoin Sodium,9.99\n' +
     'Acetaminophen and Codeine Phosphate,81\n' +
     'GAP Favorite Lip Balm,65\n' +
     'PRIMAXIN,7\n' +

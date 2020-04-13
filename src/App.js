@@ -18,8 +18,7 @@ class App extends Component{
         super(props);
 
         this.state = {
-            inventory: []
-                                                                                    //TODO: Different arrays for all categories
+            inventory: []                                                                                                   //TODO: Different arrays for all categories
         }
         this.loadInventory()
     }
@@ -28,7 +27,7 @@ class App extends Component{
        
         this.state.inventory.map((info) => {
             if (info.name === name) {
-                info.quantity = quantity;
+                info.quantity = parseInt(quantity);
 
             }
         })
@@ -47,35 +46,51 @@ class App extends Component{
     // }
 
 
-    loadInventory = () => {                                                                         //TODO: Different arrays for all categories
+    loadInventory = () => {
 
-        if (localStorage.getItem("inventoryStorage") !== null){
-            this.state.inventory = JSON.parse(localStorage.getItem('inventoryStorage'))
-            // tempInventory.map((info) => {
-            //     let item = {
-            //         name:info.split(',')[0],
-            //         price: info.split(',')[1] ,
-            //         quantity: 0
-            //     };
-            //     this.state.inventory.push(item);
-            //
-            // })
+        if (localStorage.getItem("inventoryStorage") !== null){ //if data exists in localstorage, get quantity from there
+
+            let item = {}
+            let inventoryFromLocalStorage = JSON.parse(localStorage.getItem('inventoryStorage'))
+            let originalData = data.split('\n');
+
+            originalData.map((info) => {
+
+                let nameOfItem = info.split(',')[0]
+                let priceOfItem = info.split(',')[1]
+
+                inventoryFromLocalStorage.map((inventoryData) => {
+                    if(inventoryData.name === nameOfItem)
+                    {
+                        item = {
+                            name: nameOfItem,
+                            price: priceOfItem,
+                            quantity: inventoryData.quantity
+                        }
+                    }
+
+                }) //END LOCALSTORAGE FOR-EACH
+
+                this.state.inventory.push(item);
+            }) //END ORIGINALDATA FOR-EACH
+
         }
 
-       else{
-            let splittedData = data.split('\n');
+       else
+           {
+                let splittedData = data.split('\n');
 
-            splittedData.map((info) => {
+                splittedData.map((info) => {
 
-                let item = {
-                    name:info.split(',')[0],
-                    price: info.split(',')[1] ,
-                    quantity: 0
-                };
-                this.state.inventory.push(item);
+                    let item = {
+                        name:info.split(',')[0],
+                        price: parseFloat(info.split(',')[1]),
+                        quantity: 0
+                    };
+                    this.state.inventory.push(item);
 
-            })
-           }
+                })
+            }
     }
 
     render() {
