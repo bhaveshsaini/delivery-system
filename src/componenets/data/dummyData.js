@@ -1,4 +1,5 @@
-export const data = 'Advanced Hand Sanitizer,1.99\n' +
+export const data = 'tomatos,2.99\n' +
+    'Advanced Hand Sanitizer,1.99\n' +
     'Sulfamethoxazole and Trimethoprim,1.50\n' +
     'Hizentra,2.25\n' +
     'Treatment Set TS331632,19.99\n' +

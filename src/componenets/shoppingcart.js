@@ -87,9 +87,23 @@ class Shoppingcart extends Component {                                          
                     {/*    </p>*/}
                     {/*</header>*/}
 
-                    <h1>Shopping Cart</h1>
-
                     <div id={'originaldata'}>
+
+                        <div id={'title'}>
+                            <h1 id={'shoppingCartTag'}>Shopping Cart</h1>
+                        </div>
+
+                        <div id={'buttonDIV'}>
+                            <button id={'removeAllButton'} onClick={
+                                () =>
+                                {   localStorage.clear()
+                                    window.location.reload()
+                                }
+                            } type={"button"}>
+                                Remove All Items
+                            </button>
+                        </div>
+
                         <table>
                             <thead>
                             <tr>
@@ -128,9 +142,13 @@ class Shoppingcart extends Component {                                          
                                 </tr> : ""
                             )}
                             </tbody>
+                            <tr id={'checkoutRow'}>
+                                <td>
+                                    <h2><b>Subtotal: ${this.state.subTotal.toFixed(2)}</b></h2>
+                                </td>
+                            </tr>
+                            <button onClick={() => this.props.checkout(this.state.shoppingCart)} id="btn">Continue to checkout</button>
                         </table>
-
-                        <h2><b>Subtotal: ${this.state.subTotal.toFixed(2)}</b></h2>
                     </div>
 
 

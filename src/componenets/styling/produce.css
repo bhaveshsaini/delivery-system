@@ -141,6 +141,27 @@ only screen and (max-width: 760px),
     }
 }
 
+#mainTableDIV{
+    /*background-color: grey;*/
+}
+
+.searchedResult{
+    /*background-color: black;*/
+}
+
+#originalTable{
+    max-width: 100%;
+}
+
+#itemTitle{
+    /*background-color: red;*/
+    margin: 15%;
+}
+
+#produceTitle{
+    font: bold 40px/30px Georgia, serif;
+}
+
 #lastColumn button{
     margin: 20px;
 }

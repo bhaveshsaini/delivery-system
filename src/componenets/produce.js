@@ -42,12 +42,12 @@ class Produce extends Component {
             })
 
             if (searched){
-                document.getElementById('originaldata').style.display = 'block'
+                document.getElementById('originalTable').style.display = 'block'
                 document.getElementById('noresults').style.display = 'none'
             }
 
             else {
-                document.getElementById('originaldata').style.display = 'none'
+                document.getElementById('originalTable').style.display = 'none'
                 document.getElementById('noresults').style.display = 'block'
             }
 
@@ -56,7 +56,7 @@ class Produce extends Component {
         if(value === '')
         {
             this.props.inventory.map((info) => document.getElementById(info.name).style.display = 'table-row')
-            document.getElementById('originaldata').style.display = 'block'
+            document.getElementById('originalTable').style.display = 'block'
             document.getElementById('noresults').style.display = 'none'
         }
 
@@ -116,13 +116,18 @@ class Produce extends Component {
                         </p>
                     </header>
 
-                    <h1>Produce</h1>
-                    <div className={'searchbar'}>
-                        <input onChange={this.searchbar} type="text" placeholder="Search for produce items" name="search"/>
-                    </div>
+                    <div id={'mainTableDIV'}>
 
-                    <div id={'originaldata'}>
-                        <table>
+                        <div id={'itemTitle'}>
+                            <h1 id={'produceTitle'}>Produce</h1>
+                        </div>
+
+                        <div className={'searchbar'}>
+                            <input onChange={this.searchbar} type="text" placeholder="Search for produce items" name="search"/>
+                        </div>
+
+                                                                                                                                     {/*TODO: SEARCH RESULTS NOT SHOWING UP CORRECTLY*/}
+                        <table id={'originalTable'}>
                             <thead>
                             <tr>
                                 <th>Item Name</th>
@@ -131,28 +136,27 @@ class Produce extends Component {
                             </tr>
                             </thead>
                             <tbody>
-                                    {this.props.inventory.map((info) =>
-                                        <tr id={info.name}>
-                                            <td>{info.name}</td>
-                                            <td>${info.price}</td>
-                                            <td id={'lastColumn'}>
-                                                <form>                                                                                  
-                                                    <input id={info.name + '1'} defaultValue={info.quantity} min={"0"} type={'number'} required/>
-                                                    <button onClick={() => this.props.addToCart(info.name, info.price, document.getElementById(info.name + '1').value)} type={"button"}>
-                                                        Add To Cart
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    )}
+                                {this.props.inventory.map((info) =>
+                                    <tr id={info.name}>
+                                        <td>{info.name}</td>
+                                        <td>${info.price}</td>
+                                        <td id={'lastColumn'}>
+                                            <form>
+                                                <input id={info.name + '1'} defaultValue={info.quantity} min={"0"} type={'number'} required/>
+                                                <button onClick={() => this.props.addToCart(info.name, info.price, document.getElementById(info.name + '1').value)} type={"button"}>
+                                                    Add To Cart
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                )}
                             </tbody>
                         </table>
-                    </div>
 
-                    <div id={'noresults'}>
-                        <h1>No Results</h1>
+                        <div id={'noresults'}>
+                            <h1>No Results</h1>
+                        </div>
                     </div>
-
                 </div>
                 </body>
             </div>
