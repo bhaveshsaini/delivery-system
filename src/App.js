@@ -10,6 +10,7 @@ import Shoppingcart from "./componenets/shoppingcart";
 import {Elements} from "@stripe/react-stripe-js";
 import {loadStripe} from "@stripe/stripe-js";
 import Stripe from 'stripe'
+import Axios from "axios";
 
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {data} from "./componenets/data/dummyData";
@@ -33,7 +34,7 @@ class App extends Component {
 
         let itemsToSend = []
 
-        shoppingCart.map((item) =>{
+        shoppingCart.map((item) => {
             let newItem = {
                 name: item.name,
                 amount: item.price,
@@ -46,25 +47,63 @@ class App extends Component {
 
         console.log('check out2')
 
-        let session = await stripe.checkout.sessions.create({
+        await stripe.checkout.sessions.create({
+            success_url: "https://www.google.com",                                                                          //TODO: CHANGE
+            cancel_url: "https://www.yahoo.com",
+            payment_method_types: ['card'],
             line_items: itemsToSend,
-            success_url: "https://www.google.com", //CHANGE
-            cancel_url: "https://www.yahoo.com",
-            payment_method_types: ['card']
         })
 
-        console.log(session)
-        await stripe.redirectToCheckout({
-            success_url: "https://www.google.com", //CHANGE
-            cancel_url: "https://www.yahoo.com",
-            sessionId: session
-        }).then((res) => {
-            console.log(res)
+            .then( async (res) => {
+                console.log(res)
+            await stripe.redirectToCheckout({
+                success_url: "https://www.google.com", //CHANGE
+                cancel_url: "https://www.yahoo.com",
+                sessionId: res
+            }).then((res) => {
+                console.log(res)
+            })
         })
 
+            .catch((e) => console.log(e))
 
+        //     let data2 = {
+        //         line_items: itemsToSend,
+        //         success_url: "https://www.google.com", //CHANGE
+        //         cancel_url: "https://www.yahoo.com",
+        //         payment_method_types: ['card']
+        //     }
+        //
+        // console.log(data2)
 
+        // Axios.post('https://api.stripe.com/v1/checkout/sessions', {
+        //     line_items : itemsToSend,
+        //     success_url: "https://www.google.com", //CHANGE
+        //     cancel_url: "https://www.yahoo.com",
+        //     payment_method_types: ['card']
+        // },{
+        //     headers: { Authorization: "Bearer " + "sk_test_67KNZkMcU7AfqYYtpQeff48600Xgjb74Vv",
+        //         'Content-Type': 'application/x-www-form-urlencoded'
+        //     }
+        // }).then(async (res) => {
+        //     console.log(res)
+        //
+        //     await stripe.redirectToCheckout({
+        //         success_url: "https://www.google.com", //CHANGE
+        //         cancel_url: "https://www.yahoo.com",
+        //         sessionId: res
+        //     }).then((res) => {
+        //         console.log(res)
+        //     })
+        // }).catch((res) => console.log(res))
 
+        // await stripe.redirectToCheckout({
+        //     success_url: "https://www.google.com", //CHANGE
+        //     cancel_url: "https://www.yahoo.com",
+        //     sessionId: session
+        // }).then((res) => {
+        //     console.log(res)
+        // })
 
 
         // stripePromise.redirectToCheckout({
