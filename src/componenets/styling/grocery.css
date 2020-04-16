@@ -145,3 +145,8 @@ only screen and (max-width: 760px),
 #noresults{
     display: none;
 }
+
+#grocery{
+    background-color: grey;
+    color: white;
+}

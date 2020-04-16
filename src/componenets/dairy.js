@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import "./styling/dairy.css"
+import photo6 from "./images/address.png";
 
 class Dairy extends Component {
 
@@ -81,12 +82,16 @@ class Dairy extends Component {
                         <img src="https://images.squarespace-cdn.com/content/57f2699fbe659461b9d87ce2/1523904360805-CKN6GSLHN6S0X1NBZN9Q/TT_NEW_LOGO_2017_F_NOGREY.png?format=1500w&content-type=image%2Fpng"/>
                     </div>
 
+                    <div id={'address'}>
+                        <img src={photo6}/>
+                    </div>
+
                     <div id={'firstdiv'} className="w3-padding-64 w3-large w3-text-grey">
                         <a onClick={() => this.props.history.push('/')} className="w3-bar-item w3-button">Home</a>
                         <a onClick={() => this.props.history.push('/produce')} className="w3-bar-item w3-button">Produce</a>
                         <a onClick={() => this.props.history.push('/beverages')} className="w3-bar-item w3-button">Beverages</a>
                         <a onClick={() => this.props.history.push('/grocery')} className="w3-bar-item w3-button">Grocery</a>
-                        <a onClick={() => this.props.history.push('/dairy')} className="w3-bar-item w3-button">Dairy</a>
+                        <a id={'dairy'} onClick={() => this.props.history.push('/dairy')} className="w3-bar-item w3-button">Dairy</a>
                     </div>
 
                 </nav>

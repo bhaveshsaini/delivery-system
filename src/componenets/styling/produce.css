@@ -173,3 +173,8 @@ only screen and (max-width: 760px),
 #noresults{
     display: none;
 }
+
+#produce{
+    background-color: grey;
+    color: white;
+}

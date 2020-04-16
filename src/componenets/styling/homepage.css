@@ -1,3 +1,4 @@
+
 .w3-sidebar a {
     font-family: "Roboto", sans-serif
 }
@@ -5,19 +6,8 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {
     font-family: "Montserrat", sans-serif;
 }
 
-.logodiv{
-    /*background-color: black;*/
-    /*height: 300px;*/
-    margin: 10%;
-}
-
 #smallScreenHeader{
     margin: 0;
-}
-
-.logodiv img{
-    max-width: 100%;
-    max-height: 100%;
 }
 
 #mySidebar{
@@ -26,6 +16,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {
 }
 
 #firstdiv{
+    margin-top: 50%;
     font-weight: bold;
 }
 
@@ -55,4 +46,261 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {
 
 #bodyy{
     max-width: 1200px;
+}
+
+.slideshowandtext{
+    display: inline-flex;
+}
+
+.outerdiv{
+    background-color: #eeeeee;
+    width: 90%;
+    height: 225px;
+    border-radius: 20px;
+    box-shadow: 5px 10px 8px #888888;
+    margin-left: 10%;
+    /*margin-right: 5%;*/
+    float: right;
+}
+
+
+.outerdiv img{
+    object-fit: fill;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+#address{
+    margin-top: 5%;
+    margin-bottom: 10%;
+    display: inline-grid;
+}
+
+#address #addressdiv{
+    margin-top: 10%;
+    margin-left: 10%;
+}
+
+#address #addressdiv p{
+    text-align: left;
+}
+
+#mapandaddress{
+    display: inline-flex;
+}
+
+#address #addressdiv img {
+    height: 50px;
+    width: 50px;
+}
+
+#home{
+    background-color: grey;
+    color: white;
+}
+
+div .images{
+    display: inline-flex;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    /*background-color: black;*/
+}
+
+/*LOGO*/
+div .images .logo{
+    margin-right: 5%;
+    width: 70%;
+    height: 50%;
+}
+
+div .images .truck{
+    margin-top: 6%;
+    width: 20%;
+    height: 20%;
+}
+
+#aboutus{
+    padding: 5%;
+}
+
+#aboutus #servingtext{
+    width: 70%;
+    margin-top: 2%;
+}
+
+#aboutus p{
+    text-align: justify;
+}
+
+.storephoto{
+    text-align: left;
+    margin-left: 5%;
+    margin-top: 5%;
+}
+
+div .storephoto img{
+    width: 70%;
+}
+
+#address iframe{
+    border:0;
+}
+
+#address span h1{
+    margin-top: 5%;
+}
+
+.delivertext{
+    color: white;
+    background-color: firebrick;
+    font-size: 25px;
+    text-align: left;
+    margin: 10%;
+    border-radius: 20px;
+    text-align: center;
+    padding: 1%;
+}
+
+.delivertext img{
+    height: 200px;
+    width: 200px;
+}
+
+.delivertext button{
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+
+#outerDIVinfo{
+    display: inline-flex;
+    padding: 1%;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal{
+    position: fixed; /* Stay in place */
+    /*z-index: 1; !* Sit on top *!*/
+    /*left: 10%;*/
+    /*top: 0;*/
+    right: 10%;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    /*overflow: auto; !* Enable scroll if needed *!*/
+    background-color: #474e5d;
+    padding-top: 50px;
+
+}
+
+.modal-content{
+    width: 50%;
+    /*height: 50%;*/
+    margin-left: 40%;
+}
+
+
+
+/*#innerdivofmodal{*/
+/*    background-color: black;*/
+/*}*/
+
+
+#grid1 img, #grid2 img{
+    margin-left: 10%;
+    border: 5px solid black;
+    display: inline-grid;
+    cursor: pointer;
+    margin-top: 5%;
+}
+
+#grid1 img:hover, #grid2 img:hover{
+    border: 5px solid red;
+}
+
+@media
+only screen and (max-width: 1309px),
+(min-device-width: 1309px) and (max-device-width: 1400px) {
+    #outerDIVinfo {
+        margin-top: 10%;
+        display: inline-block;
+        padding: 1%;
+    }
+
+    #address #addressdiv p {
+        text-align: center;
+        display: block;
+    }
+
+    .outerdiv{
+        width: 100%;
+    }
+
+    .delivertext{
+        padding: 10%;
+    }
+
+    #address {
+        margin-top: 2%;
+        margin-bottom: 10%;
+        display: block;
+    }
+
+    #mapandaddress {
+        display: block;
+    }
+
+
+    .modal-content{
+
+        width: 100%;
+        /*height: 50%;*/
+        margin: 0;
+    }
+
 }

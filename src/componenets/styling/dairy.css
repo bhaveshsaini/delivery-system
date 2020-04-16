@@ -145,3 +145,8 @@ only screen and (max-width: 760px),
 #noresults{
     display: none;
 }
+
+#dairy{
+    background-color: grey;
+    color: white;
+}
