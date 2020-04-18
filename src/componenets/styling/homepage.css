@@ -10,14 +10,16 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {
     margin: 0;
 }
 
-#mySidebar{
-    z-index: 3;
-    width: 250px;
-}
 
 #firstdiv{
-    margin-top: 50%;
+    height: 100%;
+    /*margin-top: 50%;*/
     font-weight: bold;
+    background-color: papayawhip;
+}
+
+.sidebar{
+    display: table;
 }
 
 #myOverlay{
@@ -78,8 +80,8 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {
 }
 
 #address #addressdiv{
-    margin-top: 10%;
-    margin-left: 10%;
+    margin-top: 25%;
+    margin-left: 5%;
 }
 
 #address #addressdiv p{
@@ -95,9 +97,14 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {
     width: 50px;
 }
 
-#home{
-    background-color: grey;
+
+#commonsidebarid{
+    background-color: indianred;
     color: white;
+}
+
+.home{
+    margin-top: 50%;
 }
 
 div .images{
@@ -106,6 +113,7 @@ div .images{
     margin-left: 5%;
     /*background-color: black;*/
 }
+
 
 /*LOGO*/
 div .images .logo{
@@ -121,7 +129,8 @@ div .images .truck{
 }
 
 #aboutus{
-    padding: 5%;
+    padding: 0 10% 0 10%;
+    text-align: center;
 }
 
 #aboutus #servingtext{
@@ -133,58 +142,59 @@ div .images .truck{
     text-align: justify;
 }
 
-.storephoto{
-    text-align: left;
-    margin-left: 5%;
-    margin-top: 5%;
+#aboutus #storephoto{
+    margin: 0 10% 0 10%;
 }
 
-div .storephoto img{
-    width: 70%;
+#address{
+    text-align: center;
 }
 
 #address iframe{
     border:0;
 }
 
-#address span h1{
-    margin-top: 5%;
+#address h1{
+    /*margin-top: 5%;*/
 }
 
 .delivertext{
     color: white;
-    background-color: firebrick;
     font-size: 25px;
-    text-align: left;
-    margin: 10%;
+    margin: 5% 3% 10% 10%;
     border-radius: 20px;
     text-align: center;
     padding: 1%;
+    background-image: url("https://unitedcloud.relationshop.net/RSData/0/23102019034114_Online%20Grocery%20Shopping%20Widget.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 400px;
 }
 
-.delivertext img{
-    height: 200px;
-    width: 200px;
-}
 
 .delivertext button{
-    background-color: #4CAF50;
+    background-color: black;
     border: none;
     color: white;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    font-size: 26px;
+    margin-top: 100%;
     cursor: pointer;
+    position: relative;
+    width: 100%;
+}
+
+.delivertext button:hover {
+    background-color: green;
 }
 
 
 #outerDIVinfo{
     display: inline-flex;
-    padding: 1%;
 }
+
 
 .modal {
     display: none; /* Hidden by default */
@@ -197,7 +207,7 @@ div .storephoto img{
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
 }
 
 /* Modal Content */
@@ -211,7 +221,7 @@ div .storephoto img{
 
 /* The Close Button */
 .close {
-    color: #aaaaaa;
+    color: black;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -219,12 +229,13 @@ div .storephoto img{
 
 .close:hover,
 .close:focus {
-    color: #000;
+    color: white;
     text-decoration: none;
     cursor: pointer;
 }
 
 .modal{
+    display: none;
     position: fixed; /* Stay in place */
     /*z-index: 1; !* Sit on top *!*/
     /*left: 10%;*/
@@ -235,41 +246,52 @@ div .storephoto img{
     /*overflow: auto; !* Enable scroll if needed *!*/
     background-color: #474e5d;
     padding-top: 50px;
-
 }
 
 .modal-content{
     width: 50%;
+    background-color: #FF6347;
     /*height: 50%;*/
     margin-left: 40%;
+    border-radius: 20px;
 }
 
-
-
-/*#innerdivofmodal{*/
-/*    background-color: black;*/
-/*}*/
-
+.modal-content h1{
+    background-color: black;
+    color: white;
+    width: 50%;
+    margin-left: 27%;
+}
 
 #grid1 img, #grid2 img{
-    margin-left: 10%;
+    margin-left: 5%;
     border: 5px solid black;
     display: inline-grid;
     cursor: pointer;
     margin-top: 5%;
+    border-radius: 20px;
 }
 
 #grid1 img:hover, #grid2 img:hover{
-    border: 5px solid red;
+    border: 5px solid white;
+    box-shadow: 5px 10px 8px black;
+}
+
+@media only screen and (min-width: 1309px) {
+
 }
 
 @media
-only screen and (max-width: 1309px),
+only screen and (max-width: 1250px),
 (min-device-width: 1309px) and (max-device-width: 1400px) {
     #outerDIVinfo {
         margin-top: 10%;
         display: inline-block;
         padding: 1%;
+    }
+
+    #address #addressdiv {
+        margin-top: 5%;
     }
 
     #address #addressdiv p {
@@ -282,7 +304,7 @@ only screen and (max-width: 1309px),
     }
 
     .delivertext{
-        padding: 10%;
+        display: none;
     }
 
     #address {
@@ -302,5 +324,15 @@ only screen and (max-width: 1309px),
         /*height: 50%;*/
         margin: 0;
     }
+
+    #aboutus{
+        padding: 10%;
+    }
+
+    #aboutus #storephoto{
+        width: 100%;
+        margin: 0;
+    }
+
 
 }

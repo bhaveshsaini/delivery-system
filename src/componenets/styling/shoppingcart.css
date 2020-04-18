@@ -84,12 +84,46 @@ td, th {
     width: 50%;
 }
 
+.headingdiv h5, .nigga .buttonspan{
+    display: inline;
+}
+
+.headingdiv h5{
+    font-size: 20px;
+}
+
+.row .buttonspan{
+    float: right;
+}
+
+.panel-body .row{
+    border-bottom: 1px solid indianred;
+    padding: 5%;
+}
+
+.panel-body .row .col-xs-6 .price h6{
+    font-size: 18px;
+}
+
+.panel-body .updatebtn{
+    display: inline-flex;
+}
+
+.panel-body .updatebtn .btn-danger{
+    margin-left: 30%;
+}
+
+.panel-footer h4{
+    text-align: justify;
+    text-align: right;
+}
+
 @media
-only screen and (max-width: 760px),
+only screen and (max-width: 500px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {
 
     /* Force table to not be like tables anymore */
-    table, thead, tbody, th, td, tr {
+    table, thead, tbody, th, td, tr, .container{
         display: block;
     }
 
@@ -140,6 +174,43 @@ only screen and (max-width: 760px),
         border: 1px solid #ccc;
     }
 
+/*    resize table NEW*/
+
+    .panel-body .row .nigga{
+        /*background-color: black;*/
+        width: 120px;
+    }
+    .panel-body .row .nigga .product-name{
+        word-wrap: break-word;
+    }
+
+    .panel-body .row .input{
+        width: 80px;
+        /*margin-left: 10px;*/
+    }
+
+    .panel-body .updatebtn{
+        margin-top: 10%;
+        display: block;
+    }
+
+    .panel-body .updatebtn .btn-danger{
+        margin-top: 10px;
+    }
+
+    .panel-body .price{
+        /*float: left;*/
+        margin-right: 10px;
+    }
+
+    .panel-body .price h6{
+        font-size: 18px;
+    }
+
+    .panel-footer .text-center{
+        display: inline;
+    }
+
 }
 
 #lastColumn button{
@@ -173,16 +244,14 @@ only screen and (max-width: 760px),
 
 #buttonDIV{
     text-align: right;
-    margin-top: 5%;
+    /*margin-top: 5%;*/
 }
 
-#removeAllButton{
-    background-color: rgba(255,74,70,1);
-    color: black;  
-    font: small-caps 20px/15px Georgia, serif;
-    font-weight: bold;
-    padding: 10px;
+#buttonDIV button{
+    cursor: auto;
 }
+
+
 
 #checkoutRow{
     background-color: tomato;
@@ -203,4 +272,21 @@ only screen and (max-width: 760px),
 
 #btn:hover {
     background-color: #45a049;
+}
+
+.col-xs-2{
+    display: inline-flex;
+}
+
+.buttonn{
+    margin-left: 50%;
+}
+
+.row2{
+    border-bottom: 1px solid gray;
+    padding: 5%;
+}
+
+.toprow{
+    display: inline-flex;
 }

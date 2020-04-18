@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import "./styling/beverages.css"
-import photo6 from "./images/address.png";
+import Sidebar from "./sidebar";
 
 class Beverages extends Component {
 
@@ -76,24 +76,7 @@ class Beverages extends Component {
 
                 {/*sidebar menu*/}
                 <nav className="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" id="mySidebar">
-
-                    <div className="logodiv">
-                        <i onClick={this.w3_close} className="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-                        <img src="https://images.squarespace-cdn.com/content/57f2699fbe659461b9d87ce2/1523904360805-CKN6GSLHN6S0X1NBZN9Q/TT_NEW_LOGO_2017_F_NOGREY.png?format=1500w&content-type=image%2Fpng"/>
-                    </div>
-
-                    <div id={'address'}>
-                        <img src={photo6}/>
-                    </div>
-
-                    <div id={'firstdiv'} className="w3-padding-64 w3-large w3-text-grey">
-                        <a onClick={() => this.props.history.push('/')} className="w3-bar-item w3-button">Home</a>
-                        <a onClick={() => this.props.history.push('/produce')} className="w3-bar-item w3-button">Produce</a>
-                        <a id={'beverages'} onClick={() => this.props.history.push('/beverages')} className="w3-bar-item w3-button">Beverages</a>
-                        <a onClick={() => this.props.history.push('/grocery')} className="w3-bar-item w3-button">Grocery</a>
-                        <a onClick={() => this.props.history.push('/dairy')} className="w3-bar-item w3-button">Dairy</a>
-                    </div>
-
+                    <Sidebar history={this.props.history} choice={'beverages'}/>
                 </nav>
 
                 {/*Top menu on small screens*/}
@@ -121,40 +104,36 @@ class Beverages extends Component {
                         </p>
                     </header>
 
-                    <h1>Beverages</h1>
-                    <div className={'searchbar'}>
-                        <input onChange={this.searchbar} type="text" placeholder="Search for beverages" name="search"/>
+                    <div id={'mainTableDIV'}>
+
+                        <div className={'title'}>
+                            <h1>Beverages</h1>
+                        </div>
+
+                        <div className={'searchbar'}>
+                            <span className="glyphicon glyphicon-search"></span>
+                            <input onChange={this.searchbar} type="text" placeholder="Search For Beverages" name="search"/>
+                        </div>
+
+                        <div id={'originalTable'} >
+                            <div className={'row'}>
+                                {this.props.inventory.map((info) =>
+                                    <div id={info.name} className="col-md-3 col-sm-6">
+                                        <div className="product-griid">
+                                            <p>{info.name}</p>
+                                            <p>${parseFloat(info.price).toFixed(2)}</p>
+                                            <form>
+                                                <input id={info.name + '1'} placeholder={'Quantity'} defaultValue={info.quantity !== 0 ? info.quantity : ''} min={"0"} type={'number'} required/>
+                                                <button className={'addbtn btn btn-success'} onClick={() => this.props.addToCart(info.name, info.price, document.getElementById(info.name + '1').value)} type={"button"}>
+                                                    Add To Cart
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
                     </div>
-
-                    <div id={'originaldata'}>
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>Item Name</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.props.inventory.map((info) =>
-                                        <tr id={info.name}>
-                                            <td>{info.name}</td>
-                                            <td>${info.price}</td>
-                                            <td id={'lastColumn'}>
-                                                <form>                                                                                  
-                                                    <input id={info.name + '1'} defaultValue={info.quantity} min={"0"} type={'number'} required/>
-                                                    <button onClick={() => this.props.addToCart(info.name, info.price, document.getElementById(info.name + '1').value)} type={"button"}>
-                                                        Add to Cart
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    )}
-                            </tbody>
-                        </table>
-                    </div>
-
-
 
                     <div id={'noresults'}>
                         <h1>No Results</h1>

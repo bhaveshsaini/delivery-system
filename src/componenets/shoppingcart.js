@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
 import "./styling/shoppingcart.css"
+import Sidebar from "./sidebar";
 
-class Shoppingcart extends Component {                                                                                          //TODO: CALCULATE TAX
+class Shoppingcart extends Component {                                                                                          //TODO: CALCULATE TAX AND UPDATE BUTTON
 
     constructor(props) {
         super(props);
 
         this.state = {
             shoppingCart: [],
-            subTotal: 0
+            subTotal: 0,
+            tax: 5
         }
 
         this.loadShoppingCart();
@@ -41,25 +43,15 @@ class Shoppingcart extends Component {                                          
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto"/>
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat"/>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+                <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
+                <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+                <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
                 <body id={'bodyy'} className="w3-content">
 
                 {/*sidebar menu*/}
                 <nav className="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" id="mySidebar">
-
-                    <div className="logodiv">
-                        <i onClick={this.w3_close} className="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-                        <img src="https://images.squarespace-cdn.com/content/57f2699fbe659461b9d87ce2/1523904360805-CKN6GSLHN6S0X1NBZN9Q/TT_NEW_LOGO_2017_F_NOGREY.png?format=1500w&content-type=image%2Fpng"/>
-                    </div>
-
-                    <div id={'firstdiv'} className="w3-padding-64 w3-large w3-text-grey">
-                        <a onClick={() => this.props.history.push('/')} className="w3-bar-item w3-button">Home</a>
-                        <a onClick={() => this.props.history.push('/produce')} className="w3-bar-item w3-button">Produce</a>
-                        <a onClick={() => this.props.history.push('/beverages')} className="w3-bar-item w3-button">Beverages</a>
-                        <a onClick={() => this.props.history.push('/grocery')} className="w3-bar-item w3-button">Grocery</a>
-                        <a onClick={() => this.props.history.push('/dairy')} className="w3-bar-item w3-button">Dairy</a>
-                    </div>
-
+                    <Sidebar history={this.props.history}/>
                 </nav>
 
                 {/*Top menu on small screens*/}
@@ -80,78 +72,90 @@ class Shoppingcart extends Component {                                          
                     {/*Push down content on small screens*/}
                     <div className="w3-hide-large"></div>
 
-                    {/*/!*top header*!/*/}
-                    {/*<header className="w3-container w3-xlarge">*/}
-                    {/*    <p className="w3-right">*/}
-                    {/*        <i className="fa fa-shopping-cart w3-margin-right"></i>*/}
-                    {/*    </p>*/}
-                    {/*</header>*/}
+                    {/*top header*/}
+                    <header className="w3-container w3-xlarge">
+                        <p className="w3-right">
+                            <i className="fa fa-shopping-cart w3-margin-right"></i>
+                        </p>
+                    </header>
 
                     <div id={'originaldata'}>
 
-                        <div id={'title'}>
-                            <h1 id={'shoppingCartTag'}>Shopping Cart</h1>
-                        </div>
+                                                                        {/*TABLE*/}
+                        <div className="panel panel-info cs">
+                            <div className="panel-heading">
+                                <div className="panel-title">
+                                    <div className="row innerrow">
+                                        <div className="col-xs-12 headingdiv">
+                                            <h5><span className="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h5>
+                                            <span className={'buttonspan'}><button onClick={() =>
+                                            {
+                                                localStorage.clear()
+                                                window.location.reload()
+                                            }} className={'btn btn-danger'}>Remove all</button></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                        <div id={'buttonDIV'}>
-                            <button id={'removeAllButton'} onClick={
-                                () =>
-                                {   localStorage.clear()
-                                    window.location.reload()
-                                }
-                            } type={"button"}>
-                                Remove All Items
-                            </button>
-                        </div>
+                            <div className="panel-body">
+                                {this.props.inventory.map((info) =>
+                                    info.quantity > 0 ?
+                                    <div id={info.name} className="row">
+                                        <div className="col-xs-4 nigga">
+                                            <h4 className="product-name"><strong>{info.name}</strong></h4>
+                                        </div>
 
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>Item Name</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.props.inventory.map((info) =>
-                                info.quantity > 0 ?
-                                <tr id={info.name}>
-                                    <td>{info.name}</td>
-                                    <td>${info.price}</td>
-                                    <td id={'lastColumn'}>
-                                        <form>
-                                            <input id={info.name + '1'} defaultValue={info.quantity} min={"0"} type={'number'} required/><br/>
-                                            <button
-                                                onClick={() =>
+                                        <div className="col-xs-6">
+                                            <div className="col-xs-6 text-right price">
+                                                <h6><strong>${parseFloat(info.price).toFixed(2)} <span className="text-muted"></span></strong>
+                                                </h6>
+                                            </div>
+
+                                            <div className="col-xs-4">
+                                                <input id={info.name + '1'} defaultValue={info.quantity} type="text" className="form-control input-sm input"/>
+                                            </div>
+
+                                            <div className="col-xs-2 updatebtn">
+                                                <button onClick={() =>
                                                 {
                                                     this.props.addToCart(info.name, info.price, document.getElementById(info.name + '1').value)
-                                                    window.location.reload()
-                                                }} type={"button"}>
-                                                Update
-                                            </button>
-                                            <button onClick={
-                                                () =>
-                                                {   this.props.addToCart(info.name, info.price, 0)
-                                                    window.location.reload()
-                                                }
-                                            } type={"button"}>
-                                                Remove
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr> : ""
-                            )}
-                            </tbody>
-                            <tr id={'checkoutRow'}>
-                                <td>
-                                    <h2><b>Subtotal: ${this.state.subTotal.toFixed(2)}</b></h2>
-                                </td>
-                            </tr>
-                            <button onClick={() => this.props.checkout(this.state.shoppingCart)} id="btn">Continue to checkout</button>
-                        </table>
+                                                    window.location.reload()}}
+                                                        type="button" className="btn btn-success ">
+                                                    <span>Update </span>
+                                                </button>
+
+                                                <button onClick={
+                                                    () => {
+                                                        this.props.addToCart(info.name, info.price, 0)
+                                                        window.location.reload()
+                                                    }} className="btn btn-danger">Remove</button>
+                                            </div>
+                                        </div>
+                                    </div> : ''
+                                )}
+                            </div>
+
+                            <div className="panel-footer">
+                                <div className="row text-center">
+                                    <div className="col-xs-9">
+                                        <h4 className="w3-left">
+                                            Subtotal: <strong> ${this.state.subTotal.toFixed(2)}</strong><br/><br/>
+                                            Tax: <strong> ${parseFloat(this.state.tax).toFixed(2)}</strong><br/><br/>
+                                            Total: <strong>${parseFloat(this.state.subTotal + this.state.tax).toFixed(2)}</strong>
+                                        </h4>
+                                    </div>
+
+
+                                    <div className="col-xs-3">
+                                        <button onClick={() => this.props.checkout(this.state.shoppingCart)} type="button" className="btn btn-success w3-right">
+                                            Checkout
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-
                 </div>
                 </body>
             </div>
@@ -160,3 +164,48 @@ class Shoppingcart extends Component {                                          
 }
 
 export default Shoppingcart;
+
+
+//               <table>
+//                             <thead>
+//                             <tr>
+//                                 <th>Item Name</th>
+//                                 <th>Price</th>
+//                                 <th>Quantity</th>
+//                             </tr>
+//                             </thead>
+//                             <tbody>
+//                             {this.props.inventory.map((info) =>
+//                                 info.quantity > 0 ?
+//                                 <tr id={info.name}>
+//                                     <td>{info.name}</td>
+//                                     <td>${info.price}</td>
+//                                     <td id={'lastColumn'}>
+//                                         <form>
+//                                             <input id={info.name + '1'} defaultValue={info.quantity} min={"0"} type={'number'} required/><br/>
+//                                             <button
+//                                                 onClick={() =>
+//                                                 {
+//                                                     this.props.addToCart(info.name, info.price, document.getElementById(info.name + '1').value)
+//                                                     window.location.reload()
+//                                                 }} type={"button"}>
+//                                                 Update
+//                                             </button>
+//                                             <button onClick={
+//                                                 () => {
+//                                                     this.props.addToCart(info.name, info.price, 0)
+//                                                     window.location.reload()
+//                                                 }}
+//                                              type={"button"}> Remove </button>
+//                                         </form>
+//                                    </td>
+//                                 </tr> : ""
+//                             )}
+//                             </tbody>
+//                             <tr id={'checkoutRow'}>
+//                                 <td>
+//                                     <h2><b>Subtotal: ${this.state.subTotal.toFixed(2)}</b></h2>
+//                                 </td>
+//                             </tr>
+//                             <button onClick={() => this.props.checkout(this.state.shoppingCart)} id="btn">Continue to checkout</button>
+//                         </table>
