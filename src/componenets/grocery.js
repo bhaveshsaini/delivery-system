@@ -43,12 +43,12 @@ class Grocery extends Component {
             })
 
             if (searched){
-                document.getElementById('originaldata').style.display = 'block'
+                document.getElementById('originalTable').style.display = 'block'
                 document.getElementById('noresults').style.display = 'none'
             }
 
             else {
-                document.getElementById('originaldata').style.display = 'none'
+                document.getElementById('originalTable').style.display = 'none'
                 document.getElementById('noresults').style.display = 'block'
             }
 
@@ -57,7 +57,7 @@ class Grocery extends Component {
         if(value === '')
         {
             this.props.inventory.map((info) => document.getElementById(info.name).style.display = 'table-row')
-            document.getElementById('originaldata').style.display = 'block'
+            document.getElementById('originalTable').style.display = 'block'
             document.getElementById('noresults').style.display = 'none'
         }
 

@@ -16,7 +16,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {data} from "./componenets/data/dummyData";
 
 
-class App extends Component {                                                                                                //TODO: TAX AND UPDATE BUTTON IN CART
+class App extends Component {                                                                                                //TODO: TAX
 
     constructor(props) {
         super(props);
