@@ -11,12 +11,13 @@ import {Elements} from "@stripe/react-stripe-js";
 import {loadStripe} from "@stripe/stripe-js";
 import Stripe from 'stripe'
 import Axios from "axios";
+import qs from 'qs'
 
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {data} from "./componenets/data/dummyData";
 
 
-class App extends Component {                                                                                                //TODO: TAX
+class App extends Component {                                                                                                //TODO: TAX, Add delivery on checkout
 
     constructor(props) {
         super(props);
@@ -30,14 +31,19 @@ class App extends Component {                                                   
 
     checkout = async (shoppingCart) => {
         console.log('check out')
-        const stripe = new Stripe("sk_test_67KNZkMcU7AfqYYtpQeff48600Xgjb74Vv")
+        const stripe = new window.Stripe("pk_test_8VjXprK8nQX2yvB2grjVp8HV00BjnoyUve")
+       // const stripe = require('stripe')('pk_test_8VjXprK8nQX2yvB2grjVp8HV00BjnoyUve')
+
+        console.log(stripe)
+
+        
 
         let itemsToSend = []
 
         shoppingCart.map((item) => {
             let newItem = {
                 name: item.name,
-                amount: item.price,
+                amount: item.price * 100,
                 quantity: item.quantity,
                 currency: 'usd',
             }
@@ -45,80 +51,62 @@ class App extends Component {                                                   
             itemsToSend.push(newItem);
         })
 
+        itemsToSend.push({
+
+            name: "Delivery Charge",
+            amount: 1000 ,
+            quantity: 1,
+            currency: 'usd',
+
+        })
+
         console.log('check out2')
 
-        await stripe.checkout.sessions.create({
-            success_url: "https://www.google.com",                                                                          //TODO: CHANGE
-            cancel_url: "https://www.yahoo.com",
+        var send = {
+            success_url: 'https://yahoo.com/',
+            cancel_url: 'http://localhost:3000/cart',
             payment_method_types: ['card'],
             line_items: itemsToSend,
-        })
+            shipping_address_collection: {
+                allowed_countries: ["US"]
+            }
+        }
+        
 
-            .then( async (res) => {
-                console.log(res)
-            await stripe.redirectToCheckout({
-                success_url: "https://www.google.com", //CHANGE
-                cancel_url: "https://www.yahoo.com",
-                sessionId: res
-            }).then((res) => {
-                console.log(res)
-            })
-        })
+        
 
-            .catch((e) => console.log(e))
+ 
 
-        //     let data2 = {
-        //         line_items: itemsToSend,
-        //         success_url: "https://www.google.com", //CHANGE
-        //         cancel_url: "https://www.yahoo.com",
-        //         payment_method_types: ['card']
-        //     }
-        //
-        // console.log(data2)
+       Axios({ method: 'POST', url: 'https://api.stripe.com/v1/checkout/sessions', headers: {Authorization: "Bearer " + "sk_test_67KNZkMcU7AfqYYtpQeff48600Xgjb74Vv", 'Content-Type': "application/x-www-form-urlencoded" }, data: qs.stringify(send)
+                      
+                   }) .then(async (res) => {
+                
+                    await stripe.redirectToCheckout({
 
-        // Axios.post('https://api.stripe.com/v1/checkout/sessions', {
-        //     line_items : itemsToSend,
-        //     success_url: "https://www.google.com", //CHANGE
-        //     cancel_url: "https://www.yahoo.com",
-        //     payment_method_types: ['card']
-        // },{
-        //     headers: { Authorization: "Bearer " + "sk_test_67KNZkMcU7AfqYYtpQeff48600Xgjb74Vv",
-        //         'Content-Type': 'application/x-www-form-urlencoded'
-        //     }
-        // }).then(async (res) => {
-        //     console.log(res)
-        //
-        //     await stripe.redirectToCheckout({
-        //         success_url: "https://www.google.com", //CHANGE
-        //         cancel_url: "https://www.yahoo.com",
-        //         sessionId: res
-        //     }).then((res) => {
-        //         console.log(res)
-        //     })
-        // }).catch((res) => console.log(res))
+                        sessionId: res.data.id
+                      }).then( (result) => {
+                          console.log(result)
+                
+                      }) .catch((error) => console.log(error));
 
-        // await stripe.redirectToCheckout({
-        //     success_url: "https://www.google.com", //CHANGE
-        //     cancel_url: "https://www.yahoo.com",
-        //     sessionId: session
-        // }).then((res) => {
-        //     console.log(res)
-        // })
+             })
+
+            
 
 
-        // stripePromise.redirectToCheckout({
-        //     // items: [
-        //     //     // Replace with the ID of your SKU
-        //     //     {
-        //     //         sku: 'sku_123',
-        //     //         quantity: 1
-        //     //     },
-        //     // ],
-        //     successUrl: 'https://your-website.com/success',
-        //     cancelUrl: 'https://your-website.com/canceled',
-        // })
+        // stripe.redirectToCheckout({
+
+        //     sessionId: 'cs_test_8Hh5Tp0kbo5Pt6ARpQKE5WKy74tDoA6qwMVgTQ7jb8E39EWUCBApWjiO'
+        //   }).then( (result) => {
+        //       console.log(result)
+          
+        //     // If `redirectToCheckout` fails due to a browser or network
+        //     // error, display the localized error message to your customer
+        //     // using `result.error.message`.
+        //   }) .catch((error) => console.log(error));
 
     }
+
 
     addToCart = (name, price, quantity) => {
        
