@@ -10,7 +10,8 @@ class Shoppingcart extends Component {                                          
         this.state = {
             shoppingCart: [],
             subTotal: 0,
-            tax: 5
+            tax: 0,
+            deliveryCharge: 10
         }
 
         this.loadShoppingCart();
@@ -72,13 +73,6 @@ class Shoppingcart extends Component {                                          
                     {/*Push down content on small screens*/}
                     <div className="w3-hide-large"></div>
 
-                    {/*top header*/}
-                    <header className="w3-container w3-xlarge">
-                        <p className="w3-right">
-                            <i className="fa fa-shopping-cart w3-margin-right"></i>
-                        </p>
-                    </header>
-
                     <div id={'originaldata'}>
 
                                                                         {/*TABLE*/}
@@ -92,15 +86,15 @@ class Shoppingcart extends Component {                                          
                                             {
                                                 localStorage.clear()
                                                 window.location.reload()
-                                            }} className={'btn btn-danger'}>Remove all</button></span>
+                                            }} className={this.state.shoppingCart.length === 0 ? 'btn btn-danger disabled' : 'btn btn-danger'}>Remove all</button></span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="panel-body">
-                                {this.props.inventory.map((info) =>
-                                    info.quantity > 0 ?
+                                {this.state.shoppingCart.map((info) =>
+                                    // info.quantity > 0 ?                                                          why map from inventory when we can map from the shopping cart
                                     <div id={info.name} className="row">
                                         <div className="col-xs-4 nigga">
                                             <h4 className="product-name"><strong>{info.name}</strong></h4>
@@ -121,7 +115,7 @@ class Shoppingcart extends Component {                                          
                                                 {
                                                     this.props.addToCart(info.name, info.price, document.getElementById(info.name + '1').value)
                                                     window.location.reload()}}
-                                                        type="button" className="btn btn-success ">
+                                                        type="button" className="btn btn-primary ">
                                                     <span>Update </span>
                                                 </button>
 
@@ -132,23 +126,28 @@ class Shoppingcart extends Component {                                          
                                                     }} className="btn btn-danger">Remove</button>
                                             </div>
                                         </div>
-                                    </div> : ''
+                                    </div>
                                 )}
                             </div>
 
                             <div className="panel-footer">
+                                    <div className={this.state.subTotal < 50 ? 'alert alert-danger w3-center' : ''}>
+                                            {this.state.subTotal < 50 ? 'The delivery minimum is $50' : ''}
+                                    </div>
+
                                 <div className="row text-center">
                                     <div className="col-xs-9">
                                         <h4 className="w3-left">
                                             Subtotal: <strong> ${this.state.subTotal.toFixed(2)}</strong><br/><br/>
                                             Tax: <strong> ${parseFloat(this.state.tax).toFixed(2)}</strong><br/><br/>
-                                            Total: <strong>${parseFloat(this.state.subTotal + this.state.tax).toFixed(2)}</strong>
+                                            Delivery: <strong> ${parseFloat(this.state.deliveryCharge).toFixed(2)}</strong><br/><br/>
+                                            Total: <strong>${parseFloat(this.state.subTotal + this.state.tax + this.state.deliveryCharge).toFixed(2)}</strong>
                                         </h4>
                                     </div>
 
 
                                     <div className="col-xs-3">
-                                        <button onClick={() => this.props.checkout(this.state.shoppingCart)} type="button" className="btn btn-success w3-right">
+                                        <button onClick={() => this.props.checkout(this.state.shoppingCart)} type="button" className={this.state.subTotal < 50 ? 'btn btn-success w3-right disabled' : 'btn btn-success w3-right'}>
                                             Checkout
                                         </button>
                                     </div>
@@ -164,48 +163,3 @@ class Shoppingcart extends Component {                                          
 }
 
 export default Shoppingcart;
-
-
-//               <table>
-//                             <thead>
-//                             <tr>
-//                                 <th>Item Name</th>
-//                                 <th>Price</th>
-//                                 <th>Quantity</th>
-//                             </tr>
-//                             </thead>
-//                             <tbody>
-//                             {this.props.inventory.map((info) =>
-//                                 info.quantity > 0 ?
-//                                 <tr id={info.name}>
-//                                     <td>{info.name}</td>
-//                                     <td>${info.price}</td>
-//                                     <td id={'lastColumn'}>
-//                                         <form>
-//                                             <input id={info.name + '1'} defaultValue={info.quantity} min={"0"} type={'number'} required/><br/>
-//                                             <button
-//                                                 onClick={() =>
-//                                                 {
-//                                                     this.props.addToCart(info.name, info.price, document.getElementById(info.name + '1').value)
-//                                                     window.location.reload()
-//                                                 }} type={"button"}>
-//                                                 Update
-//                                             </button>
-//                                             <button onClick={
-//                                                 () => {
-//                                                     this.props.addToCart(info.name, info.price, 0)
-//                                                     window.location.reload()
-//                                                 }}
-//                                              type={"button"}> Remove </button>
-//                                         </form>
-//                                    </td>
-//                                 </tr> : ""
-//                             )}
-//                             </tbody>
-//                             <tr id={'checkoutRow'}>
-//                                 <td>
-//                                     <h2><b>Subtotal: ${this.state.subTotal.toFixed(2)}</b></h2>
-//                                 </td>
-//                             </tr>
-//                             <button onClick={() => this.props.checkout(this.state.shoppingCart)} id="btn">Continue to checkout</button>
-//                         </table>

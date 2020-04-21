@@ -6,7 +6,7 @@ import photo3 from "./images/slideshowphoto3.png"
 import photo4 from "./images/slideshowphoto4.jpg"
 import photo5 from "./images/slideshowphoto5.png"
 import photo6 from "./images/address.png"
-import photo7 from "./images/delivery.jpg"
+import photo7 from "./images/delivery.png"
 import photo8 from "./images/aboutus.png"
 import photo9 from "./images/ourstory.png"
 import photo10 from "./images/slideshowphoto10.png"
@@ -83,29 +83,31 @@ class Homepage extends Component {
                 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
                 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css"/>
 
-
-
                 <body id={'bodyy'} className="w3-content">
 
                                         {/*------------------------------sidebar menu------------------------------*/}
-                    {/* */}
+
                     <nav className=" w3-collapse w3-sidebar  w3-top w3-bar-block" id="mySidebar">
                         <Sidebar history={this.props.history} choice={'home'}/>
                     </nav>
 
                                     {/*------------------------------Top menu on small screens------------------------------*/}
-                    <header id={'smallScreenHeader'} className="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
-                        <div className="w3-bar-item w3-padding-24 w3-wide "></div>
-                        <a href="javascript:void(0)"
-                           className="w3-bar-item w3-button w3-padding-24 w3-right" onClick={this.w3_open}><i
-                            className="fa fa-bars"></i></a>
+                    {/* <header className=" fixed-top w3-top w3-hide-large w3-black w3-xlarge">
+                        <div className=" alert alert-info"><b>There is a $10 delivery fee on every order</b></div>
+                    </header> */}
+                    
+                    <header id={'smallScreenHeader'} className="w3-bar fixed-top w3-top w3-hide-large w3-black w3-xlarge">
+
+                        <div className={'rightbuttons'}>
+                            {/* <p>There is a $10 delivery fee on every order</p> */}
+                            <a onClick={() => this.props.history.push('/cart')} href={''}><i className="fa fa-shopping-cart cart"> Cart</i></a>
+                            <a href="javascript:void(0)" className="w3-bar-item w3-button w3-padding-24 w3-right" onClick={this.w3_open}><i className="fa fa-bars"></i></a>
+                        </div>
                     </header>
 
                     {/*Overlay effect when opening sidebar on small screens*/}
                     <div className="w3-overlay w3-hide-large" onClick={this.w3_close}
                      title="close side menu" id="myOverlay"></div>
-
-
 
                                     {/*------------------------------PAGE CONTENT------------------------------*/}
                     <div className="w3-main">
@@ -113,9 +115,8 @@ class Homepage extends Component {
                         {/*Push down content on small screens*/}
                         <div className="w3-hide-large"></div>
 
-
                         {/*top header*/}
-                        <header className="w3-container">
+                        <header className="w3-container bigscreencart">
                             <p className="w3-right">
                                 <a onClick={() => this.props.history.push('/cart')} href={''}><i className="w3-xlarge w3-right fa fa-shopping-cart w3-margin-right"> Cart</i></a>
                             </p>
@@ -146,25 +147,7 @@ class Homepage extends Component {
                         <div id={'outerDIVinfo'}>
 
                             <div className={'delivertext'}>
-                            {/*    <button onClick={this.openModal}>Start Order</button>*/}
                             </div>
-
-                                {/*// <!-- Modal content -->*/}
-                            {/*<div id="animatedModal" className="modal w3-animate-zoom">*/}
-                            {/*    <div className="modal-content">*/}
-                            {/*        <span onClick={this.closeModal} className="close close-animatedModal">&times;</span><br/>*/}
-                            {/*         <h1>Order By Category</h1>*/}
-                            {/*         <div id={'grid1'}>*/}
-                            {/*             <a onClick={() => this.props.history.push('/produce')}><img height={'150'} width={'150'} src="https://cdn1.vectorstock.com/i/1000x1000/21/50/fresh-produce-hand-written-word-text-for-vector-23792150.jpg" alt=""/></a>*/}
-                            {/*             <a onClick={() => this.props.history.push('/beverages')}><img height={'150'} width={'150'} src="https://images.squarespace-cdn.com/content/v1/5c5204555b409bba8d29bf6f/1548992747752-BKDMYDXUWWJPNRH9JC10/ke17ZwdGBToddI8pDm48kPPKdZAhVybrhtR7CClqtqgUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYy7Mythp_T-mtop-vrsUOmeInPi9iDjx9w8K4ZfjXt2duifEnTg3OC9zHQ3UWHLzByOtpDMxaDt0_AtMn90gqO9CjLISwBs8eEdxAxTptZAUg/Drinks.png" alt=""/></a>*/}
-                            {/*         </div>*/}
-
-                            {/*         <div id={'grid2'}>*/}
-                            {/*             <a onClick={() => this.props.history.push('/grocery')}><img height={'150'} width={'150'} src="https://cdn3.vectorstock.com/i/1000x1000/98/12/logo-for-grocery-store-vector-21609812.jpg" alt=""/></a>*/}
-                            {/*             <a onClick={() => this.props.history.push('/dairy')}><img height={'150'} width={'150'} src="https://cdn.shopify.com/s/files/1/0166/8972/products/8260_5b4f6dadeaf595.93467138_MT2605_lg_large_6bdf1671-5cc9-488a-98c4-af5e667e3d29.jpg?v=1535437835" alt=""/></a>*/}
-                            {/*         </div>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
 
 
                             <div id={'address'}>

@@ -162,10 +162,9 @@ div .images .truck{
     color: white;
     font-size: 25px;
     margin: 5% 3% 10% 10%;
-    border-radius: 20px;
     text-align: center;
     padding: 1%;
-    background-image: url("https://unitedcloud.relationshop.net/RSData/0/23102019034114_Online%20Grocery%20Shopping%20Widget.jpg");
+    background-image: url("../images/groceryimage.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     width: 400px;
@@ -277,9 +276,6 @@ div .images .truck{
     box-shadow: 5px 10px 8px black;
 }
 
-@media only screen and (min-width: 1309px) {
-
-}
 
 @media
 only screen and (max-width: 1250px),
@@ -334,5 +330,7 @@ only screen and (max-width: 1250px),
         margin: 0;
     }
 
-
+    /* .topalert{
+        display: none;
+    } */
 }

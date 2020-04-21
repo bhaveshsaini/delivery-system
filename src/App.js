@@ -1,12 +1,15 @@
 import React, {Component}  from 'react';
 import logo from './logo.svg';
 import './App.css';
+
 import Homepage from "./componenets/homepage";
 import Beverages from "./componenets/beverages";
 import Dairy from "./componenets/dairy";
 import Grocery from "./componenets/grocery";
 import Produce from "./componenets/produce";
 import Shoppingcart from "./componenets/shoppingcart";
+import Successpage from "./componenets/successpage"
+
 import {Elements} from "@stripe/react-stripe-js";
 import {loadStripe} from "@stripe/stripe-js";
 import Stripe from 'stripe'
@@ -17,26 +20,21 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import {data} from "./componenets/data/dummyData";
 
 
-class App extends Component {                                                                                                //TODO: TAX, Add delivery on checkout
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
+class App extends Component {                                                                                                //TODO: Tax
+                                                                                                                            //TODO: Add delivery charge on checkout page        **
+                                                                                                                            //TODO: disable checkout button if no items in cart **
+    constructor(props) {                                                                                                    //TODO: disable checkout button if total < $50      **
+        super(props);                                                                                                       
+                                                                                                                            //TODO: make a success page                         **
+        this.state = {                                                                                                      //TODO: clear localstorage on success page          **
             inventory: []                                                                                                   //TODO: Different arrays for all categories
-        }
+        }                                                                                                                   //TODO: change url in success page
         this.loadInventory()
     }
 
 
     checkout = async (shoppingCart) => {
-        console.log('check out')
         const stripe = new window.Stripe("pk_test_8VjXprK8nQX2yvB2grjVp8HV00BjnoyUve")
-       // const stripe = require('stripe')('pk_test_8VjXprK8nQX2yvB2grjVp8HV00BjnoyUve')
-
-        console.log(stripe)
-
-        
 
         let itemsToSend = []
 
@@ -60,22 +58,16 @@ class App extends Component {                                                   
 
         })
 
-        console.log('check out2')
-
-        var send = {
-            success_url: 'https://yahoo.com/',
-            cancel_url: 'http://localhost:3000/cart',
+        let send = {
+        success_url: 'http://localhost:3000/success',                                                                              // change this in production
+            cancel_url: 'http://localhost:3000/cart',                                                                              // change this in production
             payment_method_types: ['card'],
             line_items: itemsToSend,
             shipping_address_collection: {
                 allowed_countries: ["US"]
             }
         }
-        
-
-        
-
- 
+                                                                                                                                    //TODO: PUT THIS IN AN ENVIRONMENT VARIABLE
 
        Axios({ method: 'POST', url: 'https://api.stripe.com/v1/checkout/sessions', headers: {Authorization: "Bearer " + "sk_test_67KNZkMcU7AfqYYtpQeff48600Xgjb74Vv", 'Content-Type': "application/x-www-form-urlencoded" }, data: qs.stringify(send)
                       
@@ -90,20 +82,6 @@ class App extends Component {                                                   
                       }) .catch((error) => console.log(error));
 
              })
-
-            
-
-
-        // stripe.redirectToCheckout({
-
-        //     sessionId: 'cs_test_8Hh5Tp0kbo5Pt6ARpQKE5WKy74tDoA6qwMVgTQ7jb8E39EWUCBApWjiO'
-        //   }).then( (result) => {
-        //       console.log(result)
-          
-        //     // If `redirectToCheckout` fails due to a browser or network
-        //     // error, display the localized error message to your customer
-        //     // using `result.error.message`.
-        //   }) .catch((error) => console.log(error));
 
     }
 
@@ -216,6 +194,12 @@ class App extends Component {                                                   
                         <Route path={"/cart"} exact render = {
                             props => (
                                 <Shoppingcart {...props} addToCart = {this.addToCart} checkout = {this.checkout} inventory = {this.state.inventory}/>
+                            )
+                        }/>
+
+                        <Route path={"/success"} exact render = {
+                            props => (
+                                <Successpage/>
                             )
                         }/>
                     </Switch>

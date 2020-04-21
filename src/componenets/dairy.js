@@ -82,9 +82,11 @@ class Dairy extends Component {
                 {/*Top menu on small screens*/}
                 <header id={'smallScreenHeader'} className="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
                     <div className="w3-bar-item w3-padding-24 w3-wide ">TOP TOMATO</div>
-                    <a href="javascript:void(0)"
-                       className="w3-bar-item w3-button w3-padding-24 w3-right" onClick={this.w3_open}><i
-                        className="fa fa-bars"></i></a>
+
+                    <div className={'rightbuttons'}>
+                        <a onClick={() => this.props.history.push('/cart')} href={''}><i className="fa fa-shopping-cart cart"> Cart</i></a>
+                        <a href="javascript:void(0)" className="w3-bar-item w3-button w3-padding-24 w3-right" onClick={this.w3_open}><i className="fa fa-bars"></i></a>
+                    </div>
                 </header>
 
                 {/*Overlay effect when opening sidebar on small screens*/}
@@ -98,7 +100,7 @@ class Dairy extends Component {
                     <div className="w3-hide-large"></div>
 
                     {/*top header*/}
-                    <header className="w3-container w3-xlarge">
+                    <header className="w3-container w3-xlarge bigscreencart">
                         <p className="w3-right">
                             <a onClick={() => this.props.history.push('/cart')} href={''}><i className="fa fa-shopping-cart w3-margin-right"> Cart</i></a>
                         </p>
@@ -124,8 +126,11 @@ class Dairy extends Component {
                                             <p>${parseFloat(info.price).toFixed(2)}</p>
                                             <form>
                                                 <input id={info.name + '1'} placeholder={'Quantity'} defaultValue={info.quantity !== 0 ? info.quantity : ''} min={"0"} type={'number'} required/>
-                                                <button className={'addbtn btn btn-success'} onClick={() => this.props.addToCart(info.name, info.price, document.getElementById(info.name + '1').value)} type={"button"}>
-                                                    Add To Cart
+                                                <button 
+                                                className={info.quantity !== 0 ? 'addbtn btn btn-primary' : 'addbtn btn btn-success'} 
+                                                onClick={() => {this.props.addToCart(info.name, info.price, document.getElementById(info.name + '1').value); window.location.reload()}}
+                                                type='button'>
+                                                    {info.quantity > 0 ? 'Update' : 'Add To Cart'}
                                                 </button>
                                             </form>
                                         </div>

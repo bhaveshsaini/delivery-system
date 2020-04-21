@@ -96,6 +96,7 @@ td, th {
     float: right;
 }
 
+
 .panel-body .row{
     border-bottom: 1px solid indianred;
     padding: 5%;
@@ -209,6 +210,10 @@ only screen and (max-width: 500px),
 
     .panel-footer .text-center{
         display: inline;
+    }
+
+    .cs{
+        margin-top: 50%;
     }
 
 }
